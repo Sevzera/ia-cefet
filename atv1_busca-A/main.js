@@ -1,13 +1,13 @@
 import fs from "fs";
-import { generateNodes } from "./nodeHandler.js";
-import { consoleInput } from "./utils/consoleInput.js";
+import { generateNodes } from "./src/nodeHandler.js";
+import { consoleInput } from "./src/utils/consoleInput.js";
 
     /* Importando dados externos */
 const heuristics_data = await JSON.parse(
-  fs.readFileSync("../data/heuristics_2.json", "utf-8")
+  fs.readFileSync("./data/heuristics_2.json", "utf-8")
 );
 const real_distances_data = await JSON.parse(
-  fs.readFileSync("../data/real-distances_2.json", "utf-8")
+  fs.readFileSync("./data/real-distances_2.json", "utf-8")
 );
 
     /* Definindo nodes */
