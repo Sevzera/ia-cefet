@@ -1,4 +1,5 @@
-import { readCSV } from "./utils/csvReader.js";
+import { readCSV } from './utils/csvReader';
+
 import readline from 'readline';
 
 const input = readline.createInterface({
@@ -6,8 +7,10 @@ const input = readline.createInterface({
 	output: process.stdout,
 });
 
-const finalIndex = input.question('Digite o índice final: ', (answer) => {
-    return parseInt(answer);
+let finalIndex;
+input.question("Digite o índice final: ", (answer) => {
+	finalIndex = parseInt(answer);
+	input.close();
 });
 
 console.log(finalIndex);
