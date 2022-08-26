@@ -9,11 +9,15 @@ const createNode = (node_name, heuristic, real_distance) => {
     setNeighbours: function (nodes) {
       for (let i = 0; i < real_distance.length; i++) {
         if (real_distance[i] != 0) {
-          this.neighbours.set(nodes[i], 
-			[real_distance[i], heuristic[i], Number((real_distance[i]+heuristic[i]).toFixed(1))]);
+          this.neighbours.set(nodes[i], [
+            real_distance[i],
+            heuristic[i],
+            Number((real_distance[i] + heuristic[i]).toFixed(1)),
+          ]);
         }
       }
     },
+
   };
 };
 
