@@ -1,11 +1,12 @@
-import { readCSV } from './utils/csvReader';
-
+import { readCSV } from './utils/csvReader.js';
+import { generateNodes } from './createNode.js';
 import readline from 'readline';
 
-const input = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-});
+const heuristics_data = await readCSV("heuristics.csv");
+const real_distances_data = await readCSV("real-distances.csv");
+console.log(heuristics_data, real_distances_data);
+const nodes = generateNodes(heuristics_data.length, heuristics_data, real_distances_data);
+console.log(nodes);
 
 let finalIndex;
 input.question("Digite o índice final: ", (answer) => {
@@ -13,13 +14,11 @@ input.question("Digite o índice final: ", (answer) => {
 	input.close();
 });
 
-let initialIndex;
-input.question("Digite o índice inicial: ", (answer) => {
-    initialIndex = parseInt(answer);
-    input.close();
-});
-
 console.log(finalIndex);
 
-const heuristics_data = readCSV("heuristics.csv");
-const real_distances_data = readCSV("real_distances.csv");
+// let finalIndex;
+// input.question("Digite o índice final: ", (answer) => {
+// 	finalIndex = parseInt(answer);
+// 	input.close();
+// });
+// console.log(finalIndex);
