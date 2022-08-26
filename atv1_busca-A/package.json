@@ -11,7 +11,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "fast-csv": "^4.3.6",
     "fs": "^0.0.1-security"
   }
 }
