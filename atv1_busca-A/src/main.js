@@ -13,6 +13,12 @@ input.question("Digite o índice final: ", (answer) => {
 	input.close();
 });
 
+let initialIndex;
+input.question("Digite o índice inicial: ", (answer) => {
+    initialIndex = parseInt(answer);
+    input.close();
+});
+
 console.log(finalIndex);
 
 const heuristics_data = readCSV("heuristics.csv");
