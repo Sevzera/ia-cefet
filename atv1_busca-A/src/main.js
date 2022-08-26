@@ -14,7 +14,12 @@ const nodes = generateNodes(
 	heuristics_data,
 	real_distances_data
 );
-console.log(nodes);
+// console.log(nodes);
+nodes.forEach((node) => { 
+	console.log(node.node_name + " --> Vizinhos:");
+	node.neighbours.forEach((value, neighbours) => { console.log(neighbours.node_name, value);});
+	console.log("\n");
+});
 
 // let finalIndex;
 // input.question("Digite o índice final: ", (answer) => {
