@@ -2,7 +2,7 @@ import fs from "fs";
 import { generateNodes } from "./nodeHandler.js";
 import { consoleInput } from "./utils/consoleInput.js";
 
-// Importando dados externos
+    /* Importando dados externos */
 const heuristics_data = await JSON.parse(
   fs.readFileSync("../data/heuristics_2.json", "utf-8")
 );
@@ -10,7 +10,7 @@ const real_distances_data = await JSON.parse(
   fs.readFileSync("../data/real-distances_2.json", "utf-8")
 );
 
-// Definindo nodes
+    /* Definindo nodes */
 const nodes = generateNodes(
   heuristics_data.length,
   heuristics_data,
@@ -23,6 +23,6 @@ const nodes = generateNodes(
 // 	console.log("\n");
 // });
 
-// Definindo inicio e fim
+    /* Definindo inicio e fim */
 const firstIndex = consoleInput("Digite o node inicial: ");
 const finalIndex = consoleInput("Digite o node final: ");
