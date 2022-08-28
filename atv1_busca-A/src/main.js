@@ -1,7 +1,8 @@
 import fs from "fs";
-import { generateNodes } from "./src/nodeHandler.js";
-import { consoleInput } from "./src/utils/consoleInput.js";
-import { search } from "./src/searchHandler.js";
+import { generateNodes } from "./nodeHandler.js";
+import { consoleInput } from "./utils/consoleInput.js";
+import { search } from "./searchHandler.js";
+import { searchAstart } from "./searchAstar.js";
 
 /* Importando dados externos */
 const heuristics_data = await JSON.parse(
@@ -23,7 +24,8 @@ const firstIndex = consoleInput("Digite o node inicial: ");
 const finalIndex = consoleInput("Digite o node final: ");
 
 /* Buscando caminho */
-const [queue, cost] = search(nodes, firstIndex - 1, finalIndex - 1);
+//const [queue, cost] = search(nodes, firstIndex - 1, finalIndex - 1);
+const [queue, cost] = searchAstart(nodes, firstIndex - 1, finalIndex - 1, 0, null, null, null);
 
 /* Imprimindo caminho */
 console.log("QUEUE:");
