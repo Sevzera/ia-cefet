@@ -26,52 +26,53 @@ const nodes = generateNodes(
 // });
 
 /* Definindo inicio e fim */
-// const firstIndex = consoleInput("Digite o node inicial: ");
-// const currentNode = nodes[firstIndex - 1];
-// const finalIndex = consoleInput("Digite o node final: ");
-// const finalNode = nodes[finalIndex - 1];
-
-const firstIndex = 6;
+const firstIndex = consoleInput("Digite o node inicial: ");
 let currentNode = nodes[firstIndex - 1];
-const finalIndex = 13;
+const finalIndex = consoleInput("Digite o node final: ");
 const finalNode = nodes[finalIndex - 1];
 
 currentNode.visited = true;
-let currentCost = currentNode.heuristic[finalNode.node_name - 1];
+let currentCost = 0;
 let queue = [currentNode];
 let border = currentNode.neighbours;
 let leastCost = Number.MAX_SAFE_INTEGER;
 
 while (currentNode != finalNode) {
 	border.forEach((relation) => {
-		const newCost =
-			currentCost + relation.cost + relation.node.heuristic[finalIndex - 1];
-		if (newCost < leastCost && !relation.node.visited) {
-			leastCost = newCost;
+		const newCost = currentCost + relation.cost;
+		const heuristicCost = newCost + relation.node.heuristic[finalIndex - 1];
+		if (heuristicCost < leastCost && !relation.node.visited) {
+			leastCost = heuristicCost;
 			currentNode = relation.node;
 		}
 	});
-	currentCost = leastCost;
-	leastCost = Number.MAX_SAFE_INTEGER;
-
-	console.log("BORDER BEFORE-------");
-	border.forEach((relation) => {
-		console.log(relation.node.node_name);
-	});
-	console.log("CHOSEN NODE: " + currentNode.node_name + ", NEIGHBOURS: ");
-	currentNode.neighbours.forEach((relation) => {
-		console.log(relation.node.node_name);
-	});
 	queue.push(currentNode);
 	currentNode.visited = true;
-	const newBorder = [...border, ...currentNode.neighbours].filter(
+	currentCost = leastCost - currentNode.heuristic[finalIndex - 1];
+	leastCost = Number.MAX_SAFE_INTEGER;
+	let newBorder = [...border, ...currentNode.neighbours].filter(
 		(relation) => !relation.node.visited
 	);
 	border = newBorder;
-	console.log("BORDER AFTER--------");
-	border.forEach((relation) => {
-		console.log(relation.node.node_name);
-	});
-
-	console.log("\n");
 }
+console.log("\n");
+console.log("QUEUE:");
+queue.forEach((node) => {
+	console.log(node.node_name);
+});
+console.log("FINAL COST: " + currentCost);
+console.log("\n");
+
+// console.log("BORDER BEFORE-------");
+// border.forEach((relation) => {
+// 	console.log(relation.node.node_name);
+// });
+// console.log("CHOSEN NODE: " + currentNode.node_name + ", NEIGHBOURS: ");
+// currentNode.neighbours.forEach((relation) => {
+// 	console.log(relation.node.node_name);
+// });
+
+// console.log("BORDER AFTER--------");
+// border.forEach((relation) => {
+// 	console.log(relation.node.node_name);
+// });
