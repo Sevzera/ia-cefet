@@ -1,4 +1,4 @@
-export const search = (nodes, start, end) => {
+export const searchAstar = (nodes, start, end) => {
 	const startNode = nodes[start]
 	const finalNode = nodes[end];
 	
