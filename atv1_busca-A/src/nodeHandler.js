@@ -1,17 +1,18 @@
 const createNode = (node_name, heuristic, real_distance) => {
 	return {
 		node_name: node_name,
-		heuristic: heuristic,
+		h_distance: heuristic,
 		real_distance: real_distance,
-		neighbours: [],
+		neighbors: [],
 		visited: false,
+        parent: null,
 
-		setNeighbours: function (nodes) {
+		setNeighbors: function (nodes) {
 			for (let i = 0; i < real_distance.length; i++) {
 				if (real_distance[i] != 0) {
-					this.neighbours.push({
+					this.neighbors.push({
 						node: nodes[i],
-						cost: real_distance[i],
+						g_distance: real_distance[i]
 					});
 				}
 			}
@@ -29,7 +30,7 @@ export const generateNodes = (
 		nodes.push(createNode(i + 1, heuristic_data[i], real_distances_data[i]));
 	}
 	nodes.forEach((node) => {
-		node.setNeighbours(nodes);
+		node.setNeighbors(nodes);
 	});
 	return nodes;
 };

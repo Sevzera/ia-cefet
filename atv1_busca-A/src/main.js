@@ -2,7 +2,6 @@ import fs from "fs";
 import { generateNodes } from "./nodeHandler.js";
 import { consoleInput } from "./utils/consoleInput.js";
 import { search } from "./searchHandler.js";
-import { searchAstart } from "./searchAstar.js";
 
 /* Importando dados externos */
 const heuristics_data = await JSON.parse(
@@ -25,11 +24,23 @@ const finalIndex = consoleInput("Digite o node final: ");
 
 /* Buscando caminho */
 //const [queue, cost] = search(nodes, firstIndex - 1, finalIndex - 1);
-const [queue, cost] = searchAstart(nodes, firstIndex - 1, finalIndex - 1, 0, null, null, null);
 
-/* Imprimindo caminho */
-console.log("QUEUE:");
-queue.forEach((node) => {
-	console.log(node.node_name);
+// /* Imprimindo caminho */
+// console.log("QUEUE:");
+// queue.forEach((node) => {
+// 	console.log(node.node_name);
+// });
+// console.log("FINAL COST: " + cost);
+
+const path = search(nodes, firstIndex - 1, finalIndex - 1);
+
+let total_distance = 0;
+path.forEach((node) => { 
+	for (let i = 0; i < node.neighbors.length; i++) {
+		if (node.neighbors[i].node == path[path.indexOf(node) + 1]) {
+			total_distance += node.neighbors[i].g_distance;
+		}
+	}
 });
-console.log("FINAL COST: " + cost);
+
+console.log(`\nPATH: ${path.map((node) => node.node_name)} -- TOTAL DISTANCE: ${total_distance}\n`);
