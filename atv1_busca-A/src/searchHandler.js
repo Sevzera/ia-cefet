@@ -33,11 +33,13 @@ export const search = (nodes, start, end) => {
 		// Removendo o node atual da lista de nodes nao expandidos e adicionando a lista de nodes expandidos
 		openList = openList.filter((node) => node != currentNode);
 		closedList.push(currentNode);
+		console.log(`	${currentNode.node_name} removido da lista de nodes nao expandidos (OpenList) e adicionado a lista de nodes expandidos (ClosedList)`);
 		
 		console.log(`\nNode expandido atual: ${currentNode.node_name}`);
 
 		// Verificando se o node atual eh o node final e retornando o caminho
 		if (currentNode == finalNode) {
+			console.log(`\n${currentNode.node_name} eh o node final! Retornando caminho...`);
 			let path = [];
 			let node = currentNode;
 			while (node != startNode) {
@@ -48,6 +50,8 @@ export const search = (nodes, start, end) => {
 			path.reverse();
 			return path;
 		}
+
+		console.log("Verificando os vizinhos do node atual e atualizando OpenList, ClosedList e Custos...");
 
 		// Expansao do node atual
 		for (let i = 0; i < currentNode.neighbors.length; i++) {
@@ -64,26 +68,29 @@ export const search = (nodes, start, end) => {
 					openList.push(neighbor.node); 
 					// Definindo o custo do node vizinho
 					pathCost[neighbor.node.node_name] = pathCost[currentNode.node_name] + neighbor.g_distance; 
+					console.log(`		${neighbor.node.node_name} adicionado a OpenList`);
 				}
 			}
 
 			console.log(` 		Custo: ${pathCost[neighbor.node.node_name]}`);
-			
+
 			// Verificando se o custo do node vizinho eh maior que o custo do node atual + a distancia do node atual para o node vizinho
 			if (pathCost[neighbor.node.node_name] > pathCost[currentNode.node_name] + neighbor.g_distance) { 
 				// Definindo o node atual como o pai do node vizinho
 				neighbor.node.parent = currentNode; 
 				// Definindo o custo do node vizinho
 				pathCost[neighbor.node.node_name] = pathCost[currentNode.node_name] + neighbor.g_distance; 
-
 				console.log(`		Custo do vizinho e pai atualizado! Custo: ${pathCost[neighbor.node.node_name]} -- Pai: ${neighbor.node.parent.node_name}`);
 
 				// Verificando se o node vizinho esta na lista de nodes expandidos
 				if (closedList.includes(neighbor.node)) { 
 					// Removendo o node vizinho da lista de nodes expandidos
 					closedList = closedList.filter((node) => node != neighbor.node); 
+					console.log(`		${neighbor.node.node_name} removido de ClosedList`);
+
 					// Adicionando o node vizinho na lista de nodes nao expandidos
 					openList.push(neighbor.node); 
+					console.log(`		${neighbor.node.node_name} adicionado a OpenList`);
 				}
 			}
 
