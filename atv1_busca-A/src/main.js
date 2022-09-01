@@ -5,10 +5,10 @@ import { searchAstar } from "./searchHandler.js";
 
 	/* Importando dados externos */
 const heuristics_data = await JSON.parse(
-	fs.readFileSync("./data/heuristics_2.json", "utf-8")
+	fs.readFileSync("./data/heuristics.json", "utf-8")
 );
 const real_distances_data = await JSON.parse(
-	fs.readFileSync("./data/real-distances_2.json", "utf-8")
+	fs.readFileSync("./data/real-distances.json", "utf-8")
 );
 
 	/* Definindo nodes */
