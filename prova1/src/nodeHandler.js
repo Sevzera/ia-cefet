@@ -27,7 +27,7 @@ export const generateNodes = (
 ) => {
 	let nodes = [];
 	for (let i = 0; i < number_of_nodes; i++) {
-		nodes.push(createNode(i + 1, heuristic_data[i], real_distances_data[i]));
+		nodes.push(createNode(i + 1, heuristic_data[0][i], real_distances_data[i]));
 	}
 	nodes.forEach((node) => {
 		node.setNeighbors(nodes);
