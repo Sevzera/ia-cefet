@@ -61,7 +61,7 @@ export const searchAstar = (nodes, start, end) => {
 		);
 
 		console.log(
-			`\nNode expandido atual: ${String.fromCharCode(
+			`\u001b[1;32m\nNode expandido atual: ${String.fromCharCode(
 				asciiPrevA + currentNode.node_name
 			)}`
 		);
@@ -69,7 +69,7 @@ export const searchAstar = (nodes, start, end) => {
 		// Verificando se o node atual eh o node final e retornando o caminho
 		if (currentNode == finalNode) {
 			console.log(
-				`\n${String.fromCharCode(
+				`\u001b[1;34m \n${String.fromCharCode(
 					asciiPrevA + currentNode.node_name
 				)} eh o node final! Retornando caminho...`
 			);
@@ -85,7 +85,7 @@ export const searchAstar = (nodes, start, end) => {
 		}
 
 		console.log(
-			"Verificando os vizinhos do node atual e atualizando OpenList, ClosedList e Custos..."
+			"\u001b[0m Verificando os vizinhos do node atual e atualizando OpenList, ClosedList e Custos..."
 		);
 
 		// Expansao do node atual
