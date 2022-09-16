@@ -45,4 +45,5 @@ path.forEach((node) => {
 	}
 });
 
-console.log(`\nPATH: ${path.map((node) => node.node_name)} -- TOTAL DISTANCE: ${total_distance}\n`);
+let asciiPrevA = 64;
+console.log(`\nPATH: ${path.map((node) => String.fromCharCode(asciiPrevA + node.node_name))} -- TOTAL DISTANCE: ${total_distance}\n`);
