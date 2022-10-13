@@ -11,7 +11,7 @@ def main():
     d_target = []
     for i in reversed(range(d_target_name.size)):
         aux = []
-        for j in range(d_target_name.size):
+        for j in reversed(range(d_target_name.size)):
             if(i == j): aux.append(1)
             else: aux.append(0)
         d_target.append( [aux, d_target_name[i]] )
