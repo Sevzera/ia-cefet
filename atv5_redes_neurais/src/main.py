@@ -24,8 +24,22 @@ def main():
     # print(x_input)
 
     rna = NeuralNetwork(0.1)
-    weight, bias = rna.perceptron_step(100, x_input, d_target)
-    # print(weight, bias)
+
+    weight_step, bias_step = rna.perceptron_step(10, x_input, d_target)
+    print('weight_step = ' + str(weight_step))
+    print('bias_step = ' + str(bias_step))
+    correct_step, correct_rate_step = rna.perceptron_test_step(x_input, d_target, weight_step, bias_step)
+    print('correct_step = ' + str(correct_step))
+    print('correct_rate_step = ' + str(correct_rate_step))
+
+    print('\n')
+
+    weight_sigmoid, bias_sigmoid = rna.perceptron_step(10, x_input, d_target)
+    print('weight_sigmoid = ' + str(weight_sigmoid))
+    print('bias_sigmoid = ' + str(bias_sigmoid))
+    correct_sigmoid, correct_rate_sigmoid = rna.perceptron_test_step(x_input, d_target, weight_sigmoid, bias_sigmoid)
+    print('correct_sigmoid = ' + str(correct_sigmoid))
+    print('correct_rate_sigmoid = ' + str(correct_rate_sigmoid))
 
     pass
 

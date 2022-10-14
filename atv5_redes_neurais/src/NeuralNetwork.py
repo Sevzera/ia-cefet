@@ -1,3 +1,4 @@
+import sympy as sym
 import numpy as np
 
 class NeuralNetwork:
@@ -8,35 +9,146 @@ class NeuralNetwork:
         self.learning_rate = learning_rate        
 
     def sigmoid(self, x):
-        return 1 / (1 + np.exp(-x))
+        if len(x) > 1: 
+            biggest = 0
+            matrix = []
+            for i in range(len(x)):
+                if x[i] > biggest: biggest = x[i]
+            for i in range(len(x)):
+                if x[i] != biggest: matrix.append(0)
+                else: matrix.append(1)
+            return sym.Matrix(matrix)
+        else: return 1 / (1 + np.exp(-x))
 
     def step(self, x):
-        # print(x)
-        return 1 if x >= 0 else 0
+        if len(x) > 1: return [1 if i >= 0 else 0 for i in x]
+        else: return 1 if x >= 0 else 0
     
+    def perceptron_test_step(self, input_t, target, w, b):
+        correct = 0
+        for i in range(len(input_t)):
+            d_name = input_t[i][1]
+            d = sym.Matrix([d for d in target if d[1] == d_name][0][0])
+
+            x = (w * sym.Matrix(input_t[i][0])) + b
+            y = ( sym.Matrix(self.sigmoid(sym.matrix2numpy(x))) )
+
+            e = d - y
+
+            test = 0
+            for err in e:
+                if err != 0: test = 1
+            if test == 0: correct += 1
+
+        correct_rate = correct/len(input_t) * 100
+        return correct, correct_rate
+
     def perceptron_step(self, max_it, inputs, targets):
-        weights = []
-        for i in range(len(inputs)):
-            weights.append([np.random.uniform(-1, 1) for i in range(len(inputs[i][0]))])
+        weights = [ [np.random.uniform(0, 1) for i in range(len(inputs[0][0]))] for j in range(len(targets)) ]
+        weights_M = sym.Matrix(weights)
         # print(weights, len(weights))
         
-        bias = []
-        for i in range(len(inputs)):
-            bias.append(np.random.uniform(-1, 1))
+        bias = [ np.random.uniform(0, 1) for j in range(len(targets)) ]
+        bias_M = sym.Matrix(bias)
         # print(bias, len(bias))
 
         t = 0
         E = 1
+        y = []
+        e = []
         while (t < max_it and E > 0):
             E = 1
             for i in range(len(inputs)):
-                x = inputs[i][0]                
+                x = sym.Matrix(inputs[i][0])             
                 d_name = inputs[i][1]
-                d = [d for d in targets if d[1] == d_name][0][0]
+                d = sym.Matrix([d for d in targets if d[1] == d_name][0][0])
+                # print('x = ' + str(x) + ' d = ' + str(d) + ' d_name = ' + str(d_name))
+
+                x1 = (weights_M * x) + bias_M
+                y.append( sym.Matrix(self.step(sym.matrix2numpy(x1))) )
+                # print('y = ' + str(y[i]))
+
+                e.append(d - y[i])
+                # print('e = ' + str(e[i]))
                 
-                x1 = np.dot(x, weights[i]) + bias[i]
-                y = self.step(x1)
+                update_w = self.learning_rate * (e[i] * x.T)
+                weights_M = weights_M + update_w
+                # print('weights = ' + str(weights_M))
+
+                update_b = self.learning_rate * e[i]
+                bias_M = bias_M + update_b
+                # print('bias = ' + str(bias_M))
+
+                for err in e[i]:
+                    E = E + err**2
+                # print('E = ' + str(E))
+                
+                # print("\n")
             t += 1
 
-        return weights, bias
+        return weights_M, bias_M
+
+    def perceptron_test_sigmoid(self, input_t, target, w, b):
+        correct = 0
+        for i in range(len(input_t)):
+            d_name = input_t[i][1]
+            d = sym.Matrix([d for d in target if d[1] == d_name][0][0])
+
+            x = (w * sym.Matrix(input_t[i][0])) + b
+            y = ( sym.Matrix(self.sigmoid(sym.matrix2numpy(x))) )
+
+            e = d - y
+
+            test = 0
+            for err in e:
+                if err != 0: test = 1
+            if test == 0: correct += 1
+
+        correct_rate = correct/len(input_t) * 100
+        return correct, correct_rate
+
+    def perceptron_sigmoid(self, max_it, inputs, targets):
+        weights = [ [np.random.uniform(0, 1) for i in range(len(inputs[0][0]))] for j in range(len(targets)) ]
+        weights_M = sym.Matrix(weights)
+        # print(weights, len(weights))
+        
+        bias = [ np.random.uniform(0, 1) for j in range(len(targets)) ]
+        bias_M = sym.Matrix(bias)
+        # print(bias, len(bias))
+
+        t = 0
+        E = 1
+        y = []
+        e = []
+        while (t < max_it and E > 0):
+            E = 1
+            for i in range(len(inputs)):
+                x = sym.Matrix(inputs[i][0])             
+                d_name = inputs[i][1]
+                d = sym.Matrix([d for d in targets if d[1] == d_name][0][0])
+                # print('x = ' + str(x) + ' d = ' + str(d) + ' d_name = ' + str(d_name))
+
+                x1 = (weights_M * x) + bias_M
+                y.append( sym.Matrix(self.sigmoid(sym.matrix2numpy(x1))) )
+                # print('y = ' + str(y[i]))
+
+                e.append(d - y[i])
+                # print('e = ' + str(e[i]))
+                
+                update_w = self.learning_rate * (e[i] * x.T)
+                weights_M = weights_M + update_w
+                # print('weights = ' + str(weights_M))
+
+                update_b = self.learning_rate * e[i]
+                bias_M = bias_M + update_b
+                # print('bias = ' + str(bias_M))
+
+                for err in e[i]:
+                    E = E + err**2
+                # print('E = ' + str(E))
+                
+                # print("\n")
+            t += 1
+
+        return weights_M, bias_M
        
