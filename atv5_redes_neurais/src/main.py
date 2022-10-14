@@ -2,6 +2,10 @@ import pandas as pd
 
 from NeuralNetwork import NeuralNetwork
 
+def define_train_test(df):
+    pass
+
+
 def main():
     df_path = 'data/'
     df = pd.read_csv(df_path + 'column_3C.dat', sep=' ', header=None)
@@ -23,21 +27,26 @@ def main():
         x_input.append( [x_input_df[i].tolist(), df[6][i]] )
     # print(x_input)
 
+    x_train = x_input
+    d_train = d_target
+    x_test = x_input
+    d_test = d_target
+
     rna = NeuralNetwork(0.1)
 
-    weight_step, bias_step = rna.perceptron_step(10, x_input, d_target)
+    weight_step, bias_step = rna.perceptron_step(10, x_train, d_train)
     print('weight_step = ' + str(weight_step))
     print('bias_step = ' + str(bias_step))
-    correct_step, correct_rate_step = rna.perceptron_test_step(x_input, d_target, weight_step, bias_step)
+    correct_step, correct_rate_step = rna.perceptron_test_step(x_train, d_train, weight_step, bias_step)
     print('correct_step = ' + str(correct_step))
     print('correct_rate_step = ' + str(correct_rate_step))
 
     print('\n')
 
-    weight_sigmoid, bias_sigmoid = rna.perceptron_step(10, x_input, d_target)
+    weight_sigmoid, bias_sigmoid = rna.perceptron_sigmoid(10, x_test, d_test)
     print('weight_sigmoid = ' + str(weight_sigmoid))
     print('bias_sigmoid = ' + str(bias_sigmoid))
-    correct_sigmoid, correct_rate_sigmoid = rna.perceptron_test_step(x_input, d_target, weight_sigmoid, bias_sigmoid)
+    correct_sigmoid, correct_rate_sigmoid = rna.perceptron_test_sigmoid(x_test, d_test, weight_sigmoid, bias_sigmoid)
     print('correct_sigmoid = ' + str(correct_sigmoid))
     print('correct_rate_sigmoid = ' + str(correct_rate_sigmoid))
 
