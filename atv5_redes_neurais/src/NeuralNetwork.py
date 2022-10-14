@@ -49,7 +49,7 @@ class NeuralNetwork:
                     test = 1
             if test == 0:
                 correct += 1
-                print("CORRETO")
+                # print("CORRETO")
 
         N = len(input_t)
         correct_rate = (correct/N) * 100
@@ -96,12 +96,12 @@ class NeuralNetwork:
                 for err in e[i]:
                     E = E + err*err
                 # print('E = ' + str(E))
+                ve.append(E)
 
                 # print("\n")
-            ve.append(E)
             t += 1
 
-        return weights_M, bias_M
+        return weights_M, bias_M, ve
 
     def perceptron_test_sigmoid(self, input_t, target, w, b):
         correct = 0
@@ -166,9 +166,9 @@ class NeuralNetwork:
                 for err in e[i]:
                     E = E + err*err
                 # print('E = ' + str(E))
+                ve.append(E)
 
                 # print("\n")
-            ve.append(E)
             t += 1
 
-        return weights_M, bias_M
+        return weights_M, bias_M, ve
