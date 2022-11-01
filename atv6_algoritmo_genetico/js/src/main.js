@@ -70,5 +70,4 @@ while (n < 1000) {
 
 	n++;
 }
-console.log(population);
-console.log("coords:", population[0].x, population[0].y);
+console.log(population[0]);
