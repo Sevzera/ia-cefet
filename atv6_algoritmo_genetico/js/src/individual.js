@@ -1,4 +1,4 @@
-export default class Chromosome {
+export default class Individual {
 	constructor(x, y) {
 		this.x = Number(x);
 		this.y = Number(y);

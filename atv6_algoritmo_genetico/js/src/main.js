@@ -1,4 +1,4 @@
-import Chromosome from "./chromosome.js";
+import Individual from "./individual.js";
 
 const N = 100;
 
@@ -12,27 +12,28 @@ const fitnessFunction = (x, y) => {
 const linearMappingFunction = (i) => {
 	const max = 100;
 	const min = 0;
-	return (min + (max - min) * ((N - i) / (N - 1))).toFixed(2);
+	return min + (max - min) * ((N - i) / (N - 1)).toFixed(2);
 };
 
-let chromosomes = [];
+let population = [];
+
 for (let i = 0; i < N; i++) {
-	chromosomes.push(
-		new Chromosome(
+	population.push(
+		new Individual(
 			(Math.random() * 20 - 10).toFixed(2),
 			(Math.random() * 20 - 10).toFixed(2)
 		)
 	);
-	chromosomes[i].calculateFitness(fitnessFunction);
+	population[i].calculateFitness(fitnessFunction);
 }
 
-chromosomes.sort((a, b) => {
+population.sort((a, b) => {
 	return a.fitness - b.fitness;
 });
 for (let i = 0; i < N; i++) {
-	chromosomes[i].calculateMappedFitness(linearMappingFunction, i + 1);
+	population[i].calculateMappedFitness(linearMappingFunction, i + 1);
 }
 
-chromosomes.forEach((chromosome) => {
-	console.log(chromosome.toString());
+population.forEach((individual) => {
+	console.log(individual.toString());
 });
