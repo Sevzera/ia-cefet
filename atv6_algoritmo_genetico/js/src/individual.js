@@ -17,10 +17,10 @@ export default class Individual {
 	}
 
 	tryToMutate() {
-		if (Math.random() < 0.05) {
+		if (Math.random() < 0.005) {
 			this.x = Number((Math.random() * 20 - 10).toFixed(5));
 		}
-		if (Math.random() < 0.05) {
+		if (Math.random() < 0.005) {
 			this.y = Number((Math.random() * 20 - 10).toFixed(5));
 		}
 	}
