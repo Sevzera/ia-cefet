@@ -1,3 +1,5 @@
+import numpy as np
+
 class Chromosome:
     def __init__(self, x, y):
         self.x = x
@@ -13,8 +15,14 @@ class Chromosome:
             "Mapped Fitness: " + str(self.mappedFitness)
         )
 
-    def calculateFitness (self,fitnessFunction):
+    def calculateFitness(self, fitnessFunction):
         self.fitness = fitnessFunction(self.x, self.y)
 
-    def calculateMapFitness (self, linearMappingFunction, i, N):
+    def calculateMapFitness(self, linearMappingFunction, i, N):
         self.mappedFitness = linearMappingFunction(i, N)
+
+    def tryToMutate(self):
+        if np.random.rand() < 0.005:
+            self.x = round(np.random.uniform(-10, 10), 5)
+        if np.random.rand() < 0.005:
+            self.y = round(np.random.uniform(-10, 10), 5)

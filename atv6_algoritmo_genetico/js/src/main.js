@@ -46,6 +46,7 @@ while (n < 1000) {
 			if (sum >= odd) break;
 		}
 		pairs[i] = population.find((individual) => individual.mappedFitness === j);
+		// console.log(pairs[i].mappedFitness, j);
 	}
 
 	for (let i = 0; i < N; i += 2) {
