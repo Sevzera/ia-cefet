@@ -68,7 +68,17 @@ while (n < 1000) {
 	}
 	population = children;
 
+	if (n % 10 === 0)
+		console.log(
+			`Melhor candidato da geração ${n}:`,
+			population[0].x,
+			population[0].y
+		);
 	n++;
 }
-console.log(population);
-console.log("coords:", population[0].x, population[0].y);
+// console.log(population);
+console.log(
+	"Melhor candidato da última geração:",
+	population[0].x,
+	population[0].y
+);
