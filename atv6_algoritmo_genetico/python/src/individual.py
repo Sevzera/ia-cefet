@@ -21,8 +21,12 @@ class Individual:
     def calculateMapFitness(self, linearMappingFunction, i, N):
         self.mappedFitness = linearMappingFunction(i, N)
 
-    def tryToMutate(self):
-        if np.random.rand() < 0.005:
-            self.x = round(np.random.uniform(-10, 10), 5)
-        if np.random.rand() < 0.005:
-            self.y = round(np.random.uniform(-10, 10), 5)
+    def tryToMutate(self, local_search):
+        if np.random.rand() < 0.1:
+            xNeg = self.x - (self.x*local_search)
+            xPos = self.x + (self.x*local_search)
+            self.x = round(np.random.uniform(xNeg, xPos), 5)
+        if np.random.rand() < 0.1:
+            yNeg = self.y - (self.y*local_search)
+            yPos = self.y + (self.y*local_search)
+            self.y = round(np.random.uniform(yNeg, yPos), 5)

@@ -17,11 +17,16 @@ export default class Individual {
 	}
 
 	tryToMutate() {
-		if (Math.random() < 0.005) {
-			this.x = Number((Math.random() * 20 - 10).toFixed(5));
+		const localSearch = 0.1;
+		if (Math.random() < 0.05) {
+			const xNeg = this.x - (this.x*localSearch);
+			const xPos = this.x + (this.x*localSearch)
+			this.x = Math.random() * (xPos - xNeg + 1) + xNeg
 		}
-		if (Math.random() < 0.005) {
-			this.y = Number((Math.random() * 20 - 10).toFixed(5));
+		if (Math.random() < 0.05) {
+			const yNeg = this.y - (this.y*localSearch);
+			const yPos = this.y + (this.y*localSearch)
+			this.y = Math.random() * (yPos - yNeg + 1) + yNeg
 		}
 	}
 
